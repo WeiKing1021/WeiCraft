@@ -1,0 +1,7 @@
+<div class="carousel-container">
+  <nz-carousel nzEffect="scrollx" nzAutoPlay [nzAutoPlaySpeed]="1000">
+    <div nz-carousel-content *ngFor="let index of this.textArray">
+      <h3>{{ index }}</h3>
+    </div>
+  </nz-carousel>
+</div>

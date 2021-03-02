@@ -1,0 +1,13 @@
+<div nz-row [nzGutter]="[16, 24]" >
+  <div *ngFor="let card of this.cards" nz-col [nzXs]="12" [nzSm]="24" [nzLg]="8" [nzMd]="12">
+    <nz-card *ngIf="card" nzHoverable [nzCover]="coverTemplate" [nzExtra]="coverTemplateExtra" [routerLink]="card.router">
+      <nz-card-meta [nzTitle]="card.title" [nzDescription]="card.description"></nz-card-meta>
+    </nz-card>
+    <ng-template #coverTemplate>
+      <img alt="example" [src]="card.img" />
+    </ng-template>
+    <ng-template #coverTemplateExtra>
+      <h4>{{ card.extra }}</h4>
+    </ng-template>
+  </div>
+</div>

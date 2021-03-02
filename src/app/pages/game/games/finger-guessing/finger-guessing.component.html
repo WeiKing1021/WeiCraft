@@ -1,0 +1,68 @@
+<div nz-row nzJustify="center" nzAlign="middle" nzGutter="1" class="center">
+  <div nz-col nzSpan="6" nzSize="small">
+    <nz-card nzTitle="勝利">
+      <h1>{{ this.win }}</h1>
+    </nz-card>
+  </div>
+  <div nz-col nzSpan="6" nzSize="small">
+    <nz-card nzTitle="平手">
+      <h1>{{ this.tie }}</h1>
+    </nz-card>
+  </div>
+  <div nz-col nzSpan="6" nzSize="small">
+    <nz-card nzTitle="落敗">
+      <h1>{{ this.loss }}</h1>
+    </nz-card>
+  </div>
+</div>
+<div nz-row nzJustify="center" nzAlign="middle" nzGutter="8">
+  <div nz-col nzSpan="8" class="choose-item" [ngStyle]="{'visibility': this.showAiItem(0) ? 'visible' : 'hidden'}">
+    <img src="/assets/games/finger-guessing/scissors.svg">
+  </div>
+  <div nz-col nzSpan="8" class="choose-item" [ngStyle]="{'visibility': this.showAiItem(1) ? 'visible' : 'hidden'}">
+    <img src="/assets/games/finger-guessing/stone.svg">
+  </div>
+  <div nz-col nzSpan="8" class="choose-item" [ngStyle]="{'visibility': this.showAiItem(2) ? 'visible' : 'hidden'}">
+    <img src="/assets/games/finger-guessing/paper.svg">
+  </div>
+</div>
+<nz-divider nzDashed [nzText]="textUser">
+  <ng-template #textUser>
+    <i nz-icon nzType="arrow-up"></i> 對手選擇 <i nz-icon nzType="arrow-up"></i>
+  </ng-template>
+</nz-divider>
+<div nz-row nzJustify="center" nzAlign="middle" nzGutter="8">
+  <div nz-col nzSpan="24" class="center">
+    <ng-container *ngIf="this.userChoose == -1; else resultTemplate">
+      <h2>開始猜拳！剪刀，石頭，布！</h2>
+    </ng-container>
+    <ng-template #resultTemplate>
+      <ng-container *ngIf="this.checkUserWin() == 1">
+        <h1 style="color: DARKGREEN;">你贏了</h1>
+      </ng-container>
+      <ng-container *ngIf="this.checkUserWin() == 0">
+        <h1 style="color: DARKORANGE;">平手</h1>
+      </ng-container>
+      <ng-container *ngIf="this.checkUserWin() == -1">
+        <h1 style="color: DARKRED;">你輸了</h1>
+      </ng-container>
+      <h3>點擊您的圖案繼續猜拳</h3>
+    </ng-template>
+  </div>
+</div>
+<nz-divider nzDashed [nzText]="textAi">
+  <ng-template #textAi>
+    <i nz-icon nzType="arrow-down"></i> 您的選擇 <i nz-icon nzType="arrow-down"></i>
+  </ng-template>
+</nz-divider>
+<div nz-row nzJustify="center" nzAlign="middle" nzGutter="8" class="choose-container">
+  <div nz-col nzSpan="8" class="choose-item" (click)="this.onClick(0)" [ngStyle]="{'visibility': this.showUserItem(0) ? 'visible' : 'hidden'}">
+    <img src="/assets/games/finger-guessing/scissors.svg">
+  </div>
+  <div nz-col nzSpan="8" class="choose-item" (click)="this.onClick(1)" [ngStyle]="{'visibility': this.showUserItem(1) ? 'visible' : 'hidden'}">
+    <img src="/assets/games/finger-guessing/stone.svg">
+  </div>
+  <div nz-col nzSpan="8" class="choose-item" (click)="this.onClick(2)" [ngStyle]="{'visibility': this.showUserItem(2) ? 'visible' : 'hidden'}">
+    <img src="/assets/games/finger-guessing/paper.svg">
+  </div>
+</div>

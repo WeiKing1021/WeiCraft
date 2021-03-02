@@ -1,0 +1,78 @@
+<nz-divider nzOrientation="left" nzText="Horizontal"></nz-divider>
+<nz-progress [nzPercent]="this.itemCount * 10" nzType="circle" [nzStrokeWidth]="10" style="display: inline-block;"></nz-progress>
+<nz-progress [nzPercent]="this.itemCount * 10" nzType="circle" nzStrokeLinecap="square" style="display: inline-block;"></nz-progress>
+<nz-progress [nzPercent]="this.itemCount * 10" nzType="circle" [nzStrokeColor]="this.strokeProperty" style="display: inline-block;"></nz-progress>
+<nz-progress [nzPercent]="this.itemCount * 10"></nz-progress>
+<nz-progress [nzPercent]="this.itemCount * 10" [nzStatus]="this.itemCount == 10 ? 'success' : 'active'"></nz-progress>
+<div style="text-align: center;">
+  {{ this.itemCount }} / 10
+</div>
+<div *ngIf="this.itemCount == 10">
+  <nz-alert nzType="success" nzCloseable [nzMessage]="this.alertMessage"></nz-alert>
+</div>
+<nz-divider nzOrientation="center" nzText="Center"></nz-divider>
+<div nz-row [nzGutter]="[16, 24]" >
+  <div *ngFor="let card of this.cards" nz-col [nzXs]="12" [nzSm]="24" [nzLg]="8" [nzMd]="12">
+    <nz-card *ngIf="card" nzHoverable [nzCover]="coverTemplate" [nzExtra]="coverTemplateExtra">
+      <nz-card-meta [nzTitle]="'[' + card.index + '] ' + card.title" [nzDescription]="card.description"></nz-card-meta>
+    </nz-card>
+    <ng-template #coverTemplate>
+      <img alt="example" [src]="card.img" />
+    </ng-template>
+    <ng-template #coverTemplateExtra>
+      {{ card.extra }}
+    </ng-template>
+  </div>
+  <!--<div nz-col [nzXs]="12" [nzSm]="24" [nzLg]="8" [nzMd]="12">
+    <nz-card nzHoverable [nzCover]="coverTemplate" [nzExtra]="coverTemplateExtra">
+      <nz-card-meta nzTitle="我的標題" nzDescription="我的說明文字"></nz-card-meta>
+    </nz-card>
+    <ng-template #coverTemplate>
+      <img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />
+    </ng-template>
+    <ng-template #coverTemplateExtra>
+      More
+    </ng-template>
+  </div>
+  <div nz-col [nzXs]="12" [nzSm]="24" [nzLg]="8" [nzMd]="12">
+    <nz-card nzHoverable [nzCover]="coverTemplate">
+      <nz-card-meta nzTitle="我的標題" nzDescription="我的說明文字"></nz-card-meta>
+    </nz-card>
+    <ng-template #coverTemplate>
+      <img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />
+    </ng-template>
+  </div>
+  <div nz-col [nzXs]="12" [nzSm]="24" [nzLg]="8" [nzMd]="12">
+    <nz-card nzHoverable [nzCover]="coverTemplate">
+      <nz-card-meta nzTitle="我的標題" nzDescription="我的說明文字"></nz-card-meta>
+    </nz-card>
+    <ng-template #coverTemplate>
+      <img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />
+    </ng-template>
+  </div>
+  <div nz-col [nzXs]="12" [nzSm]="24" [nzLg]="8" [nzMd]="12">
+    <nz-card nzHoverable [nzCover]="coverTemplate">
+      <nz-card-meta nzTitle="我的標題" nzDescription="我的說明文字"></nz-card-meta>
+    </nz-card>
+    <ng-template #coverTemplate>
+      <img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />
+    </ng-template>
+  </div>
+  <div nz-col [nzXs]="12" [nzSm]="24" [nzLg]="8" [nzMd]="12">
+    <nz-card nzHoverable [nzCover]="coverTemplate">
+      <nz-card-meta nzTitle="我的標題" nzDescription="我的說明文字"></nz-card-meta>
+    </nz-card>
+    <ng-template #coverTemplate>
+      <img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />
+    </ng-template>
+  </div>
+  <div nz-col [nzXs]="12" [nzSm]="24" [nzLg]="8" [nzMd]="12">
+    <nz-card nzHoverable [nzCover]="coverTemplate">
+      <nz-card-meta nzTitle="我的標題" nzDescription="我的說明文字"></nz-card-meta>
+    </nz-card>
+    <ng-template #coverTemplate>
+      <img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />
+    </ng-template>
+  </div>
+-->
+</div>

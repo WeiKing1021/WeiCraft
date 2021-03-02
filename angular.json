@@ -28,7 +28,12 @@
             "aot": true,
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              {
+                "glob": "**/*",
+                "input": "./node_modules/@ant-design/icons-angular/src/inline-svg/",
+                "output": "/assets/"
+              }
             ],
             "styles": [
               "src/styles.less"
@@ -127,5 +132,8 @@
       }
     }
   },
-  "defaultProject": "WeiCraft"
+  "defaultProject": "WeiCraft",
+  "cli": {
+    "analytics": "b14890d8-8d8d-4516-84e0-24992b25e318"
+  }
 }

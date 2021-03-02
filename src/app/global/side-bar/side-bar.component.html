@@ -1,0 +1,43 @@
+<ul nz-menu nzMode="inline">
+  <li nz-submenu nzTitle="導覽" nzIcon="appstore" [(nzOpen)]="this.openMap.menu1" (nzOpenChange)="onOpenChange('menu1')">
+    <ul>
+      <li nz-menu-group nzTitle="關於">
+        <ul>
+          <li nz-menu-item nzMatchRouter>
+            <a (click)="this.onRoute()" routerLink="./welcome">關於我</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a (click)="this.onRoute()" routerLink="./welcome2">關於網站</a>
+          </li>
+        </ul>
+      </li>
+      <li nz-menu-group nzTitle="小玩具">
+        <ul>
+          <li nz-menu-item nzMatchRouter>
+            <a (click)="this.onRoute()" routerLink="./game">遊戲</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a (click)="this.onRoute()" routerLink="./funny">娛樂</a>
+          </li>
+          <li nz-menu-item nzMatchRouter nzDisabled>
+            <a>不知道是啥</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li nz-submenu nzTitle="標題 2" nzIcon="appstore" [(nzOpen)]="this.openMap.menu2" (nzOpenChange)="onOpenChange('menu2')">
+    <ul>
+      <li nz-menu-item>內容！</li>
+      <li nz-menu-item>內容！</li>
+      <li nz-menu-item>內容！</li>
+      <li nz-menu-item>內容！</li>
+      <li nz-menu-item>內容！</li>
+      <li nz-menu-item>內容！</li>
+      <li nz-menu-item>內容！</li>
+      <li nz-menu-item>內容！</li>
+      <li nz-menu-item>內容！</li>
+      <li nz-menu-item>內容！</li>
+    </ul>
+  </li>
+</ul>
