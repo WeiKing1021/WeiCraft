@@ -6,11 +6,12 @@
     "start": "ng serve --host 0.0.0.0",
     "build": "ng build --prod --build-optimizer",
     "test-electron": "electron main.js",
-    "build-electron": "electron-packager . WeiCraft --platform=win32 --arch=x64 --no-prune --ignore=/node_modules --ignore=/e2e --ignore=/src --overwrite",
+    "build-electron": "electron-packager . WeiCraft --platform=win32 --arch=x64 --no-prune --ignore=/node_modules --ignore=/e2e --ignore=/src --overwrite --asar",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
+  "main": "main.js",
   "private": true,
   "dependencies": {
     "@angular/animations": "~11.0.6",
