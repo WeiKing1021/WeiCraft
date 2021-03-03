@@ -21,14 +21,14 @@ export class GameComponent implements OnInit {
       title: '猜拳小遊戲',
       description: '來和電腦猜拳吧！',
       extra: '開始遊戲',
-      router: './finger-guessing',
+      router: 'finger-guessing',
     },
     {
       img: 'https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png',
       title: '猜拳小遊戲EX',
       description: '來和電腦EX猜拳吧！',
       extra: '開始遊戲',
-      router: './finger-guessing',
+      router: 'finger-guessing',
     },
   ];
 
