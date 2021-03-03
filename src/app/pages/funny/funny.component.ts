@@ -27,6 +27,8 @@ export class FunnyComponent implements OnInit {
 
   public itemCount: number = 0;
 
+  public progessCount: number = 0;
+
   public alertMessage: string = '成功產生10個囉！';
 
   constructor() {
@@ -49,6 +51,16 @@ export class FunnyComponent implements OnInit {
       }
 
       this.itemCount = value;
+    });
+
+    const progess = timer(0, 100).subscribe((value) => {
+
+      if (++value === 100) {
+
+        progess.unsubscribe();
+      }
+
+      this.progessCount = value;
     });
 
     /*for (let i = 0; i < 50; i++) {

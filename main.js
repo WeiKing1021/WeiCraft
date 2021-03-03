@@ -1,8 +1,7 @@
 // Modules to control application life and create native browser window
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow, nativeImage } = require('electron')
 const { Notification } = require('electron')
 
-// const url = require("url");
 const path = require('path')
 
 function createWindow () {
@@ -18,20 +17,23 @@ function createWindow () {
 
   // and load the index.html of the app.
   // mainWindow.loadURL('https://facebook.com/');
-  window.loadFile(__dirname + '/dist_electron/index.html');
+  // window.loadFile(__dirname + '/dist_electron/index.html');
+  window.loadURL(__dirname + '/dist_electron/index.html');
 
   // Open the DevTools.
-  window.webContents.openDevTools()
+  // window.webContents.openDevTools()
 
-  window.setIcon(__dirname + '/dist_electron/assets/icon.png');
+  window.setIcon(__dirname + '/dist_electron/assets/icon64.png');
   // Hide menu bar
   window.setMenu(null);
+
 }
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
+
   createWindow()
 
   app.on('activate', function () {
@@ -45,11 +47,6 @@ app.whenReady().then(() => {
 // for applications and their menu bar to stay active until the user quits
 // explicitly with Cmd + Q.
 app.on('window-all-closed', function () {
-
-  new Notification({
-    title: '拜託啦～',
-    body: '看一下我的屁股啦～',
-  }).show()
 
   if (process.platform !== 'darwin') app.quit();
 })

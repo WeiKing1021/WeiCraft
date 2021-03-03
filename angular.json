@@ -40,7 +40,10 @@
             "styles": [
               "src/styles.less"
             ],
-            "scripts": []
+            "scripts": [],
+            "allowedCommonJsDependencies": [
+              "hammerjs"
+           ]
           },
           "configurations": {
             "production": {

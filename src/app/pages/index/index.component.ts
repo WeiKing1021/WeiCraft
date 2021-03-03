@@ -12,16 +12,25 @@ export class IndexComponent implements OnInit, OnDestroy {
 
   public scheduler: Subscription | undefined;
 
-  public textArray: string[] = [
-    '第一段文字',
-    '第二段文字',
-    '第三段文字',
-    '第四段文字',
-  ];
+  public viewList: {
+    text: string,
+    image: string,
+  }[];
 
   constructor() {
 
     this.timer = timer(0, 500);
+
+    this.viewList = [
+      {
+        text: '這是想長大的小雞',
+        image: 'assets/chicken/chicken0.png',
+      },
+      {
+        text: '這是長超大隻的小雞',
+        image: 'assets/chicken/chicken1.png',
+      }
+    ];
   }
 
   ngOnInit(): void {

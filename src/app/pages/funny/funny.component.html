@@ -1,7 +1,18 @@
 <nz-divider nzOrientation="left" nzText="Horizontal"></nz-divider>
-<nz-progress [nzPercent]="this.itemCount * 10" nzType="circle" [nzStrokeWidth]="10" style="display: inline-block;"></nz-progress>
-<nz-progress [nzPercent]="this.itemCount * 10" nzType="circle" nzStrokeLinecap="square" style="display: inline-block;"></nz-progress>
-<nz-progress [nzPercent]="this.itemCount * 10" nzType="circle" [nzStrokeColor]="this.strokeProperty" style="display: inline-block;"></nz-progress>
+<div nz-row [nzGutter]="[16, 24]" nzAlign="middle">
+  <div nz-col [nzXs]="12" [nzSm]="6" style="text-align: center;">
+    <nz-progress [nzPercent]="this.itemCount * 10" nzType="circle" [nzStrokeWidth]="10" style="display: inline-block;"></nz-progress>
+  </div>
+  <div nz-col [nzXs]="12" [nzSm]="6" style="text-align: center;">
+    <nz-progress [nzPercent]="this.itemCount * 10" nzType="circle" nzStrokeLinecap="square" style="display: inline-block;"></nz-progress>
+  </div>
+  <div nz-col [nzXs]="12" [nzSm]="6" style="text-align: center;">
+    <nz-progress [nzPercent]="this.itemCount * 10" nzType="circle" [nzStrokeColor]="this.strokeProperty" style="display: inline-block;"></nz-progress>
+  </div>
+  <div nz-col [nzXs]="12" [nzSm]="6" style="text-align: center;">
+    <nz-progress [nzPercent]="this.progessCount" nzType="circle" [nzStrokeColor]="this.strokeProperty" style="display: inline-block;"></nz-progress>
+  </div>
+</div>
 <nz-progress [nzPercent]="this.itemCount * 10"></nz-progress>
 <nz-progress [nzPercent]="this.itemCount * 10" [nzStatus]="this.itemCount == 10 ? 'success' : 'active'"></nz-progress>
 <div style="text-align: center;">

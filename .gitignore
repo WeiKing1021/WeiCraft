@@ -47,4 +47,4 @@ testem.log
 Thumbs.db
 
 # Electron output
-/electron_output
+/electron_build

@@ -34,9 +34,10 @@
 <div nz-row nzJustify="center" nzAlign="middle" nzGutter="8">
   <div nz-col nzSpan="24" class="center">
     <ng-container *ngIf="this.userChoose == -1; else resultTemplate">
-      <h2>開始猜拳！剪刀，石頭，布！</h2>
+      <h1>剪刀，石頭，布！</h1>
     </ng-container>
     <ng-template #resultTemplate>
+
       <ng-container *ngIf="this.checkUserWin() == 1">
         <h1 style="color: DARKGREEN;">你贏了</h1>
       </ng-container>
@@ -46,7 +47,6 @@
       <ng-container *ngIf="this.checkUserWin() == -1">
         <h1 style="color: DARKRED;">你輸了</h1>
       </ng-container>
-      <h3>點擊您的圖案繼續猜拳</h3>
     </ng-template>
   </div>
 </div>

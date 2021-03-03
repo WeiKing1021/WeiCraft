@@ -13,3 +13,13 @@
 .ant-drawer-body {
   padding: 0px;
 }
+
+@primary-color: #FF9900;
+
+&.@{drawer-prefix-cls}-open .@{drawer-prefix-cls}-mask {
+  height: 100%;
+  opacity: 1;
+  transition: none;
+  animation: antdDrawerFadeIn @animation-duration-slow @ease-base-out;
+  pointer-events: auto;
+}

@@ -1,13 +1,20 @@
-<div class="carousel-container">
-  <nz-carousel nzEffect="scrollx" nzAutoPlay [nzAutoPlaySpeed]="1000">
-    <div nz-carousel-content *ngFor="let index of this.textArray">
-      <h3>{{ index }}</h3>
-    </div>
-  </nz-carousel>
-</div>
-<div>
-  測試看看這行
-</div>
-<div>
-  再測試看看這行
+<div class="index">
+  <div class="carousel-container">
+    <nz-carousel nzEffect="scrollx" nzAutoPlay [nzAutoPlaySpeed]="3000">
+      <div nz-carousel-content *ngFor="let view of this.viewList">
+        <div nz-row nzAlign="middle">
+          <div nz-col nzSpan="20" nzOffset="2" style="text-align: center;">
+            <h3>{{ view.text }}</h3>
+            <img [src]="view.image" style="height: 240px; max-width: 100%; margin: auto;">
+          </div>
+        </div>
+      </div>
+    </nz-carousel>
+  </div>
+  <div>
+    測試看看這行
+  </div>
+  <div>
+    再測試看看這行
+  </div>
 </div>

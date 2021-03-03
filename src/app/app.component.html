@@ -1,4 +1,4 @@
-<nz-layout class="layout">
+<nz-layout class="layout" (swiperight)="this.openSideBar(); this.onSwipe($event)">
   <nz-sider [(nzCollapsed)]="this.collapsed" nzTheme="light" nzBreakpoint="sm" [nzWidth]="this.sidebarWidth" [nzCollapsedWidth]="0" [nzTrigger]="null" (nzCollapsedChange)="this.collapsedChange()">
     <app-logo></app-logo>
     <nz-divider></nz-divider>
@@ -6,12 +6,16 @@
       <app-side-bar></app-side-bar>
     </div>
   </nz-sider>
-  <nz-drawer [nzClosable]="false" [nzVisible]="this.isSideBarVisible()" [nzPlacement]="'left'" [nzWidth]="this.sidebarWidth" (nzOnClose)="closeSideBar()">
+  <nz-drawer nzMask="loading" nzWrapClassName="drawer_class" [nzCloseOnNavigation]="true" [nzClosable]="false" [nzVisible]="this.isSideBarVisible()" [nzPlacement]="'left'" [nzWidth]="this.sidebarWidth" (nzOnClose)="closeSideBar()">
     <ng-container *nzDrawerContent nzDrawer>
-      <app-logo (routeEvent)="this.closeSideBar()"></app-logo>
-      <nz-divider></nz-divider>
-      <div class="sidebar">
-        <app-side-bar (routeEvent)="this.closeSideBar()"></app-side-bar>
+      <!-- Intercept event -->
+      <div class="full_screen" (swipeleft)="this.closeSideBar()" (click)="this.closeSideBar()"></div>
+      <div (swipeleft)="this.closeSideBar()">
+        <app-logo (routeEvent)="this.closeSideBar()"></app-logo>
+        <nz-divider></nz-divider>
+        <div class="sidebar">
+          <app-side-bar (routeEvent)="this.closeSideBar()"></app-side-bar>
+        </div>
       </div>
     </ng-container>
   </nz-drawer>
