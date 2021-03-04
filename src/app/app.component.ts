@@ -2,18 +2,29 @@ import { AfterViewInit, Component, ElementRef, EventEmitter, OnInit } from '@ang
 import { NzDrawerComponent, NzDrawerService } from 'ng-zorro-antd/drawer';
 import { NzLayoutComponent } from 'ng-zorro-antd/layout';
 import { timer } from 'rxjs';
+import { HammerEvent } from './directive/wei-hammer.directive';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.less']
 })
-export class AppComponent implements AfterViewInit {
+export class AppComponent {
+
+  public hammerOption: HammerOptions = {
+    touchAction: 'auto',
+    inputClass: Hammer.TouchInput,
+    recognizers: [
+      [Hammer.Swipe, { direction: Hammer.DIRECTION_ALL }],
+    ]
+  };
 
   public sidebarWidth: number = 256;
 
   public collapsed: boolean = false;
   public visible: boolean = false;
+
+  private swipeBond: number = 0.4;
 
   constructor(private drawerSv: NzDrawerService) {
   }
@@ -22,34 +33,6 @@ export class AppComponent implements AfterViewInit {
 
     this.visible = false;
   }
-
-  ngAfterViewInit(): void {
-
-    // this.injectSideBarListener();
-    // this.drawerSv.create();
-  }
-
-  /*public injectSideBarListener(): void {
-
-        const drawer = document.getElementsByClassName('ant-drawer ant-drawer-left ng-star-inserted ant-drawer-open').item(0);
-
-        if (drawer !== null) {
-
-          const handler = new Hammer.Manager(drawer, {
-            touchAction: 'auto',
-            inputClass: Hammer.TouchInput,
-            recognizers: [
-              [Hammer.Swipe, { direction: Hammer.DIRECTION_LEFT }],
-            ]
-          });
-
-          handler.on('swipeleft', () => {
-
-            this.closeSideBar();
-          });
-        }
-
-  }*/
 
   public openSideBar(): void {
 
@@ -76,34 +59,51 @@ export class AppComponent implements AfterViewInit {
     return this.visible;
   }
 
-  public test(): void {
+  public onHammer($hammer: HammerEvent): void {
 
-    alert('TEST');
-  }
+    if ($hammer.input.pointers.length == 0 || !($hammer.input.pointers[0] instanceof Touch)) {
 
-  public reg(myComponentRef: NzDrawerComponent): void {
+      return;
+    }
 
-    // alert(myComponentRef.listOfNzSiderComponent.length);
-    // alert(myComponentRef.templateContext);
+    const el: HTMLElement = $hammer.elRef.nativeElement;
+    const event: Touch = $hammer.input.pointers[0];
 
-    /*const sub = timer(0, 500).subscribe((val) => {
+    const startX = event.pageX - $hammer.input.deltaX - el.getBoundingClientRect().x;
+    // const startY = event.pageY - $hammer.input.deltaY - el.getBoundingClientRect().y;
 
-      const n: number = 256;
+    if ($hammer.input.type === 'swiperight') {
 
+      if (startX > el.getBoundingClientRect().width * 0.7) {
 
-      myComponentRef.listOfNzSiderComponent.forEach((item, index, array) => {
-
-        item.nzWidth = (n - 10);
-      });
-
-      if (val++ === 20) {
-
-        sub.unsubscribe();
+        return;
       }
-    });*/
-  }
 
-  public onSwipe($event: Event): void {
+      if ($hammer.input.velocity < this.swipeBond) {
 
+        return;
+      }
+
+      this.openSideBar();
+
+      if ($hammer.input.velocity > 5) {
+
+        alert('你拉太大力了啦！');
+      }
+    }
+    else if ($hammer.input.type === 'swipeleft') {
+
+      if (startX < this.sidebarWidth) {
+
+        return;
+      }
+
+      if ($hammer.input.velocity > this.swipeBond * -1) {
+
+        return;
+      }
+
+      this.closeSideBar();
+    }
   }
 }

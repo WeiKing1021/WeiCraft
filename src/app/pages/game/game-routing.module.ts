@@ -10,8 +10,8 @@ const routes: Routes = [
     customBreadcrumb: '猜拳小遊戲',
   }},
   { path: 'hammer', component: HammerComponent, data: {
-    customBreadcrumg: '手勢測試',
-  } },
+    customBreadcrumb: '手勢測試',
+  }},
   { path: '**', component: GameComponent },
 ];
 

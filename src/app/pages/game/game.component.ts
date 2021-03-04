@@ -25,10 +25,10 @@ export class GameComponent implements OnInit {
     },
     {
       img: 'https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png',
-      title: '猜拳小遊戲EX',
-      description: '來和電腦EX猜拳吧！',
+      title: '滑動小遊戲',
+      description: '測試手機上的手勢',
       extra: '開始遊戲',
-      router: 'finger-guessing',
+      router: 'hammer',
     },
   ];
 

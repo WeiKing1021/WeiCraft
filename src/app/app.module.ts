@@ -53,7 +53,8 @@ registerLocaleData(zh);
     IconsProviderModule,
     NgFormModule,
     NzSharedModule,
-    HammerModule
+    HammerModule,
+    WeiCustomModule,
   ],
   providers: [
     {

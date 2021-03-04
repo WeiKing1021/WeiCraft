@@ -43,15 +43,7 @@ export class HammerComponent implements OnInit {
 
       this.index = 0;
     }*/
-
-    const x = event.pageX - el.offsetLeft;
-    const y = event.pageY - el.offsetTop;
-
-    console.log('ElementSIze: (' + el.clientWidth  + ', ' + el.clientHeight + ')');
-    console.log('PointA: (' + x + ', ' + y + ')');
-    // console.log(events[0].clientX + ', ' + events[0].clientY);
-    // console.log($hammer.elRef.nativeElement.width);
-    // console.log(events[0].offsetX + ', ' + events[0].offsetY);
-    // console.log(events[0]);
+    const startX = event.x - $hammer.input.deltaX - el.getBoundingClientRect().x;
+    const startY = event.y - $hammer.input.deltaY - el.getBoundingClientRect().y;
   }
 }

@@ -1,4 +1,4 @@
-<nz-layout class="layout" (swiperight)="this.openSideBar(); this.onSwipe($event)">
+<nz-layout appWeiHammer action="swiperight" [option]="this.hammerOption" (hammer)="this.onHammer($event)" class="layout" (swiperight)="this.openSideBar()">
   <nz-sider [(nzCollapsed)]="this.collapsed" nzTheme="light" nzBreakpoint="sm" [nzWidth]="this.sidebarWidth" [nzCollapsedWidth]="0" [nzTrigger]="null" (nzCollapsedChange)="this.collapsedChange()">
     <app-logo></app-logo>
     <nz-divider></nz-divider>
@@ -9,7 +9,7 @@
   <nz-drawer nzMask="loading" nzWrapClassName="drawer_class" [nzCloseOnNavigation]="true" [nzClosable]="false" [nzVisible]="this.isSideBarVisible()" [nzPlacement]="'left'" [nzWidth]="this.sidebarWidth" (nzOnClose)="closeSideBar()">
     <ng-container *nzDrawerContent nzDrawer>
       <!-- Intercept event -->
-      <div class="full_screen" (swipeleft)="this.closeSideBar()" (click)="this.closeSideBar()"></div>
+      <div appWeiHammer action="swipeleft" [option]="this.hammerOption" (hammer)="this.onHammer($event)" class="full_screen" (click)="this.closeSideBar()"></div>
       <div (swipeleft)="this.closeSideBar()">
         <app-logo (routeEvent)="this.closeSideBar()"></app-logo>
         <nz-divider></nz-divider>
@@ -21,10 +21,12 @@
   </nz-drawer>
   <nz-layout class="main">
     <ng-container *ngIf="this.collapsed">
-      <nz-affix [nzOffsetTop]="0" style="position: absolute; top: 80px; z-index: 1;">
-        <button nz-button [nzLoading]="false" nzSize="large" (click)="this.openSideBar()" class="sidebar_button">
-          <i nz-icon nzType="unordered-list" nzTheme="outline"></i>
-        </button>
+      <nz-affix [nzOffsetTop]="0" style="position: absolute; top: 72px; left: 8px;z-index: 1;">
+        <div style="min-width: 48px; min-height: 48px">
+          <button nz-button [nzBlock]="true" [nzLoading]="false" nzSize="large" (click)="this.openSideBar()" class="sidebar_button">
+            <i nz-icon nzType="unordered-list" nzTheme="outline"></i>
+          </button>
+        </div>
       </nz-affix>
     </ng-container>
     <div class="container">
