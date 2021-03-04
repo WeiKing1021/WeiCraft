@@ -1,3 +1,4 @@
+import { HammerComponent } from './games/hammer/hammer.component';
 import { FingerGuessingComponent } from './games/finger-guessing/finger-guessing.component';
 import { GameComponent } from './game.component';
 import { RouterModule, Routes } from '@angular/router';
@@ -8,6 +9,9 @@ const routes: Routes = [
   { path: 'finger-guessing', component: FingerGuessingComponent, data: {
     customBreadcrumb: '猜拳小遊戲',
   }},
+  { path: 'hammer', component: HammerComponent, data: {
+    customBreadcrumg: '手勢測試',
+  } },
   { path: '**', component: GameComponent },
 ];
 

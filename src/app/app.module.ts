@@ -15,22 +15,25 @@ import { SideBarComponent } from './global/side-bar/side-bar.component';
 import { LogoComponent } from './global/logo/logo/logo.component';
 import { IndexComponent } from './pages/index/index.component';
 import { HammerGestureConfig, HammerModule, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
+import { WeiCustomModule } from '@shared/wei-custom/wei-custom.module';
 
 @Injectable()
 export class MyHammerConfig extends HammerGestureConfig {
 
+  public option: HammerOptions = {
+    touchAction: 'auto',
+    inputClass: Hammer.MouseInput,
+    recognizers: [
+      [Hammer.Swipe, { direction: Hammer.DIRECTION_ALL }],
+      [Hammer.Rotate],
+      [Hammer.Pinch, { enable: true }, ['rotate']],
+      // [Hammer.Pan]
+    ]
+  };
+
   buildHammer(element: HTMLElement): HammerManager {
 
-    return new Hammer.Manager(element, {
-      touchAction: 'auto',
-      inputClass: Hammer.TouchInput,
-      recognizers: [
-        [Hammer.Swipe, { direction: Hammer.DIRECTION_ALL }],
-        [Hammer.Rotate],
-        [Hammer.Pinch, { enable: true }, ['rotate']],
-        // [Hammer.Pan]
-      ]
-    });
+    return new Hammer.Manager(element, this.option);
  }
 }
 
@@ -50,7 +53,7 @@ registerLocaleData(zh);
     IconsProviderModule,
     NgFormModule,
     NzSharedModule,
-    HammerModule,
+    HammerModule
   ],
   providers: [
     {
