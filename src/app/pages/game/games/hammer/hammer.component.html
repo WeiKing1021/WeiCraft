@@ -1,3 +1,45 @@
-<div appWeiHammer action="swipe" [option]="this.hammerOption" (hammer)="this.onHammer($event)" class="full-screen">
-  OwO
+<div appWeiHammer action="swipe" [option]="this.hammerOption" (hammer)="this.onHammer($event)" class="container">
+  <nz-row [nzGutter]="[16, 16]">
+    <!--<nz-col [nzSpan]="12">
+      <nz-statistic [nzValue]="this.swipeType" nzTitle="滑動事件"></nz-statistic>
+    </nz-col>-->
+    <nz-col [nzSpan]="12">
+      <nz-statistic [nzValue]="this.swipeDirect" nzTitle="滑動方向"></nz-statistic>
+    </nz-col>
+    <nz-col [nzSpan]="12">
+      <nz-statistic [nzValue]="this.velocity.toFixed(4)" nzTitle="滑動力道"></nz-statistic>
+    </nz-col>
+    <nz-col [nzSpan]="12">
+      <nz-statistic nzValue="{{ this.startX.toFixed(2) }}, {{ this.startY.toFixed(2) }}" nzTitle="起點座標"></nz-statistic>
+    </nz-col>
+    <nz-col [nzSpan]="12">
+      <nz-statistic nzValue="{{ this.endX.toFixed(2) }}, {{ this.endY.toFixed(2) }}" nzTitle="結束座標"></nz-statistic>
+    </nz-col>
+    <nz-col [nzSpan]="24">
+      <div style="text-align: center">
+        矩形區域數量：{{ this.paintList.length }}
+      </div>
+    </nz-col>
+    <nz-col [nzSpan]="24">
+      <div style="text-align: center">
+        <canvas #canvas appWeiHammer action="pan" [option]="this.testOption" (hammer)="this.onCanvas($event)"
+                [width]="this.getDeviceRatio() * 350" [height]="this.getDeviceRatio() * 350"></canvas>
+      </div>
+    </nz-col>
+    <nz-col [nzSpan]="8">
+      <div style="text-align: center">
+        <button nz-button nzSize="large" (click)="this.clearCanvas()">清空</button>
+      </div>
+    </nz-col>
+    <nz-col [nzSpan]="8">
+      <div style="text-align: center">
+        <button nz-button nzSize="large" (click)="this.rollback()">重做</button>
+      </div>
+    </nz-col>
+    <nz-col [nzSpan]="8">
+      <div style="text-align: center">
+        <button nz-button nzSize="large" (click)="this.save()">儲存</button>
+      </div>
+    </nz-col>
+  </nz-row>
 </div>

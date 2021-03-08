@@ -1,6 +1,6 @@
 <div class="index">
   <div class="carousel-container">
-    <nz-carousel nzEffect="scrollx" nzAutoPlay [nzAutoPlaySpeed]="3000">
+    <nz-carousel nzEffect="scrollx" [nzEnableSwipe]="false" nzAutoPlay [nzAutoPlaySpeed]="3000">
       <div nz-carousel-content *ngFor="let view of this.viewList">
         <div nz-row nzAlign="middle">
           <div nz-col nzSpan="20" nzOffset="2" style="text-align: center;">

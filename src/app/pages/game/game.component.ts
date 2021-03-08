@@ -25,10 +25,17 @@ export class GameComponent implements OnInit {
     },
     {
       img: 'https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png',
-      title: '滑動小遊戲',
-      description: '測試手機上的手勢',
+      title: '畢卡索製造器',
+      description: '測試觸控與Canvas',
       extra: '開始遊戲',
       router: 'hammer',
+    },
+    {
+      img: 'https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png',
+      title: 'WebSocket聊天室',
+      description: '練習WebSocket',
+      extra: '開始遊戲',
+      router: 'web-socket',
     },
   ];
 

@@ -1,4 +1,4 @@
-<nz-layout appWeiHammer action="swiperight" [option]="this.hammerOption" (hammer)="this.onHammer($event)" class="layout" (swiperight)="this.openSideBar()">
+<nz-layout appWeiHammer action="swiperight" [option]="this.hammerOption" (hammer)="this.onHammer($event)" class="layout">
   <nz-sider [(nzCollapsed)]="this.collapsed" nzTheme="light" nzBreakpoint="sm" [nzWidth]="this.sidebarWidth" [nzCollapsedWidth]="0" [nzTrigger]="null" (nzCollapsedChange)="this.collapsedChange()">
     <app-logo></app-logo>
     <nz-divider></nz-divider>
@@ -10,7 +10,7 @@
     <ng-container *nzDrawerContent nzDrawer>
       <!-- Intercept event -->
       <div appWeiHammer action="swipeleft" [option]="this.hammerOption" (hammer)="this.onHammer($event)" class="full_screen" (click)="this.closeSideBar()"></div>
-      <div (swipeleft)="this.closeSideBar()">
+      <div>
         <app-logo (routeEvent)="this.closeSideBar()"></app-logo>
         <nz-divider></nz-divider>
         <div class="sidebar">

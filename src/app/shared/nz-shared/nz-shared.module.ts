@@ -14,6 +14,11 @@ import { NzAlertModule } from 'ng-zorro-antd/alert';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NzProgressModule } from 'ng-zorro-antd/progress';
+import { NzAutocompleteModule } from 'ng-zorro-antd/auto-complete';
+import { NzStatisticModule } from 'ng-zorro-antd/statistic';
+import { NzSpaceModule } from 'ng-zorro-antd/space';
+import { NzInputModule } from 'ng-zorro-antd/input';
+import {NzSpinModule} from 'ng-zorro-antd/spin';
 
 @NgModule({
   declarations: [],
@@ -34,6 +39,11 @@ import { NzProgressModule } from 'ng-zorro-antd/progress';
     NzCardModule,
     NzAlertModule,
     NzProgressModule,
+    NzAutocompleteModule,
+    NzStatisticModule,
+    NzSpaceModule,
+    NzInputModule,
+    NzSpinModule,
   ]
 })
 export class NzSharedModule { }

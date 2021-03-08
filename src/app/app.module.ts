@@ -62,7 +62,7 @@ registerLocaleData(zh);
     },
     {
       provide: HAMMER_GESTURE_CONFIG, useClass: MyHammerConfig
-    }
+    },
   ],
   bootstrap: [AppComponent]
 })

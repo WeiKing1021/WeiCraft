@@ -21,7 +21,8 @@
       "dom"
     ],
     "paths": {
-      "@shared/*": ["./app/shared/*"]
+      "@shared/*": ["./app/shared/*"],
+      "@root/*": ["./app/*"]
     },
     "strictPropertyInitialization": false
   },

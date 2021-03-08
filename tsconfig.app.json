@@ -4,6 +4,10 @@
   "compilerOptions": {
     "outDir": "./out-tsc/app",
     "types": [],
+    "paths": {
+      "@shared/*": ["./app/shared/*"],
+      "@root/*": ["./app/*"]
+    }
   },
   "files": [
     "src/main.ts",

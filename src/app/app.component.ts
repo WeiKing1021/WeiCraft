@@ -1,13 +1,15 @@
-import { AfterViewInit, Component, ElementRef, EventEmitter, OnInit } from '@angular/core';
-import { NzDrawerComponent, NzDrawerService } from 'ng-zorro-antd/drawer';
-import { NzLayoutComponent } from 'ng-zorro-antd/layout';
-import { timer } from 'rxjs';
+import {Component, EventEmitter, Injectable} from '@angular/core';
+
 import { HammerEvent } from './directive/wei-hammer.directive';
+import {Observable, Observer, Subject} from 'rxjs';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.less']
+})
+@Injectable({
+  providedIn: 'root',
 })
 export class AppComponent {
 
@@ -26,8 +28,9 @@ export class AppComponent {
 
   private swipeBond: number = 0.4;
 
-  constructor(private drawerSv: NzDrawerService) {
-  }
+  private collapseEvent: EventEmitter<CollapseEvent> = new EventEmitter<CollapseEvent>(false);
+
+  constructor() {}
 
   public collapsedChange(): void {
 
@@ -41,10 +44,33 @@ export class AppComponent {
       return;
     }
 
+    const newEvent = new CollapseEvent(true, undefined);
+
+    this.collapseEvent.emit(newEvent);
+
+    if (newEvent.isCancelled()) {
+
+      return;
+    }
+
     this.visible = true;
   }
 
   public closeSideBar(): void {
+
+    if (!this.collapsed) {
+
+      return;
+    }
+
+    const newEvent = new CollapseEvent(false, undefined);
+
+    this.collapseEvent.emit(newEvent);
+
+    if (newEvent.isCancelled()) {
+
+      return;
+    }
 
     this.visible = false;
   }
@@ -59,9 +85,14 @@ export class AppComponent {
     return this.visible;
   }
 
+  public onCollapseChange(): EventEmitter<CollapseEvent> {
+
+    return this.collapseEvent;
+  }
+
   public onHammer($hammer: HammerEvent): void {
 
-    if ($hammer.input.pointers.length == 0 || !($hammer.input.pointers[0] instanceof Touch)) {
+    if (!this.collapsed || $hammer.input.pointers.length === 0 || !($hammer.input.pointers[0] instanceof Touch)) {
 
       return;
     }
@@ -74,7 +105,7 @@ export class AppComponent {
 
     if ($hammer.input.type === 'swiperight') {
 
-      if (startX > el.getBoundingClientRect().width * 0.7) {
+      if (startX > el.getBoundingClientRect().width * 0.3) {
 
         return;
       }
@@ -84,12 +115,21 @@ export class AppComponent {
         return;
       }
 
-      this.openSideBar();
+      const newEvent = new CollapseEvent(true, $hammer);
+
+      this.collapseEvent.emit(newEvent);
+
+      if (newEvent.isCancelled()) {
+
+        return;
+      }
 
       if ($hammer.input.velocity > 5) {
 
         alert('你拉太大力了啦！');
       }
+
+      this.visible = true;
     }
     else if ($hammer.input.type === 'swipeleft') {
 
@@ -103,7 +143,50 @@ export class AppComponent {
         return;
       }
 
-      this.closeSideBar();
+      const newEvent = new CollapseEvent(false, $hammer);
+
+      this.collapseEvent.emit(newEvent);
+
+      if (newEvent.isCancelled()) {
+
+        return;
+      }
+
+      this.visible = false;
     }
+  }
+}
+
+export class CollapseEvent {
+
+  public nextState: boolean;
+  public hammer: HammerEvent | undefined;
+  public isCancel: boolean;
+
+  constructor(nextState: boolean, hammer: HammerEvent | undefined) {
+
+    this.nextState = nextState;
+    this.hammer = hammer;
+    this.isCancel = false;
+  }
+
+  public getNextState(): boolean {
+
+    return this.nextState;
+  }
+
+  public getHammer(): HammerEvent | undefined {
+
+    return this.hammer;
+  }
+
+  public isCancelled(): boolean {
+
+    return this.isCancel;
+  }
+
+  public setCancel(cancel: boolean): void {
+
+    this.isCancel = cancel;
   }
 }

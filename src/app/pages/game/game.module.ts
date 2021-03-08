@@ -8,12 +8,14 @@ import { CommonModule } from '@angular/common';
 import { FingerGuessingComponent } from './games/finger-guessing/finger-guessing.component';
 import { HammerComponent } from './games/hammer/hammer.component';
 import { WeiCustomModule } from '@shared/wei-custom/wei-custom.module';
+import { WebSocketComponent } from './games/web-socket/web-socket.component';
 
 @NgModule({
   declarations: [
     GameComponent,
     FingerGuessingComponent,
     HammerComponent,
+    WebSocketComponent,
   ],
   imports: [
     CommonModule,

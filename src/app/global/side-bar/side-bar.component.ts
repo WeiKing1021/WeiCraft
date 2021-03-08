@@ -15,6 +15,8 @@ export class SideBarComponent implements OnInit {
     menu3: false
   };
 
+  public list: string[] = ['A', 'B', 'C', 'D', 'E', 'F', 'G']
+
   constructor() {}
 
   ngOnInit(): void {}
@@ -35,3 +37,9 @@ export class SideBarComponent implements OnInit {
     this.routeEvent.emit();
   }
 }
+
+export interface MenuOption {
+
+  title: string;
+}
+
