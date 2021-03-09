@@ -1,10 +1,9 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import { AnonymousChatContent } from '@root/model/anonymous-chat/anonymous-chat-content';
 
 import * as SockJS from 'sockjs-client';
 import * as Stomp from 'stompjs';
-
-/*import { SockJS } from '@types/sockjs-client/index';
-import { Stomp, Client } from '@stomp/stompjs';*/
+import {AnonymousChatUser} from '@root/model/anonymous-chat/anonymous-chat-user';
 
 @Component({
   selector: 'app-web-socket',
@@ -16,11 +15,13 @@ export class WebSocketComponent implements OnInit, OnDestroy {
   @ViewChild('chatContent')
   public chatContentRef: ElementRef<HTMLDivElement>;
 
-  public userName: string;
+  public chatUser: AnonymousChatUser;
+
+  public activeUsers: Array<AnonymousChatUser> = Array<AnonymousChatUser>();
 
   public client: Stomp.Client;
 
-  public chatContentList: ChatContent[] = Array<ChatContent>();
+  public chatContentList: AnonymousChatContent[] = Array<AnonymousChatContent>();
 
   public userInput: string;
 
@@ -30,9 +31,9 @@ export class WebSocketComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {}
 
-  public setUserName(userName: string): void {
+  public newUser(userName: string): void {
 
-    this.userName = userName;
+    this.chatUser = AnonymousChatUser.new(userName);
   }
 
   public newWebSocket(): void {
@@ -47,8 +48,8 @@ export class WebSocketComponent implements OnInit, OnDestroy {
       });
     }
 
-    // this.client = Stomp.over(new SockJS('http://localhost:8080/ws'));
-    this.client = Stomp.over(new SockJS('https://api.weicraft.tw/ws'));
+    // this.client = Stomp.over(new SockJS('http://localhost:8080/ws/anonymous-chat'));
+    this.client = Stomp.over(new SockJS('https://api.weicraft.tw/ws/anonymous-chat'));
 
     this.client.debug = (args) => {
 
@@ -59,9 +60,9 @@ export class WebSocketComponent implements OnInit, OnDestroy {
 
       this.loading = false;
 
-      this.client.subscribe('/topic/chat', (message => {
+      this.client.subscribe('/topic/pakUserChatPlayIn', (message => {
 
-        const content: ChatContent = JSON.parse(message.body);
+        const content: AnonymousChatContent = JSON.parse(message.body);
 
         this.chatContentList.push(content);
 
@@ -71,11 +72,16 @@ export class WebSocketComponent implements OnInit, OnDestroy {
         }, 1);
       }));
 
-      this.client.send('/chat', undefined, JSON.stringify({
-        author: this.userName,
-        message: '大家好，我是剛來的，我叫做' + this.userName,
-        time: new Date().getTime(),
+      this.client.subscribe('/topic/pakUserListPlayIn', (message => {
+
+        const userArray: Array<AnonymousChatUser> = JSON.parse(message.body);
+
+        this.activeUsers = userArray;
       }));
+
+      this.sendRowData('/pakUserJoinPlayOut', this.chatUser);
+
+      this.sendMessage('大家好，我是剛來的，我叫做' + this.chatUser.name);
 
     }, (error) => {
 
@@ -85,35 +91,28 @@ export class WebSocketComponent implements OnInit, OnDestroy {
     });
   }
 
+  public sendRowData(channel: string, data: any): void {
+
+    this.client.send(channel, undefined, JSON.stringify(data));
+  }
+
+  public sendMessage(chatMessage: string): void {
+
+    this.sendRowData('/pakUserChatPlayOut', AnonymousChatContent.create(this.chatUser, chatMessage));
+  }
+
   public send(): void {
 
-    if (!this.client || !this.client.connected) {
-
-      return;
-    }
-
-    /*if (!this.userInput || this.userInput.length === 0) {
-
-      return;
-    }
-
-    if (this.userInput[this.userInput.length] === '\n') {
-
-      this.userInput = this.userInput.slice(0, this.userInput.length - 1);
-    }
-
-    if (this.userInput.length === 0) {
-
-      return;
-    }*/
-
-    this.client.send('/chat', undefined, JSON.stringify({
-      author: this.userName,
-      message: this.userInput,
-      time: new Date().getTime(),
-    }));
+    const tmpInput = this.userInput.replace(/^\s+|\s+$/, '');
 
     this.userInput = '';
+
+    if (tmpInput === '') {
+
+      return;
+    }
+
+    this.sendMessage(tmpInput);
   }
 
   public bottom(): void {
@@ -138,14 +137,12 @@ export class WebSocketComponent implements OnInit, OnDestroy {
       return;
     }
 
+    this.sendMessage('大家掰掰～');
+
+    this.sendRowData('/pakUserQuitPlayOut', this.chatUser);
+
     this.client.disconnect(() => {
 
     });
   }
-}
-
-export interface ChatContent {
-  author: string;
-  message: string;
-  time: number;
 }

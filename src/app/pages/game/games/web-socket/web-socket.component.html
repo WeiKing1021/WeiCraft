@@ -1,19 +1,19 @@
 <div>
-  <ng-container *ngIf="!this.userName; else userInfo">
+  <ng-container *ngIf="!this.chatUser; else userInfo">
     <div nz-row nzJustify="center" [nzGutter]="[0, 18]">
       <div nz-col [nzXs]="11" [nzSm]="11" [nzMd]="8" [nzLg]="6">
-        <input #userNameInput type="text" nz-input placeholder="請輸入您的暱稱" (keyup.enter)="this.setUserName(userNameInput.value); this.newWebSocket()"/>
+        <input #userNameInput type="text" nz-input placeholder="請輸入您的暱稱" (keyup.enter)="this.newUser(userNameInput.value); this.newWebSocket()"/>
       </div>
     </div>
     <div nz-row nzJustify="center" [nzGutter]="[0, 18]">
       <div nz-col [nzXs]="22" [nzSm]="22" [nzMd]="16" [nzLg]="12" style="text-align: center">
-        <button nz-button nzSize="large" (click)="this.setUserName(userNameInput.value); this.newWebSocket()">加入聊天室</button>
+        <button nz-button nzSize="large" (click)="this.newUser(userNameInput.value); this.newWebSocket()">加入聊天室</button>
       </div>
     </div>
   </ng-container>
   <ng-template #userInfo>
     <div class="userInfo">
-      <h1>您好，{{ this.userName }}</h1>
+      <h1>您好，{{ this.chatUser.name }}</h1>
     </div>
   </ng-template>
   <div *ngIf="this.loading" nz-row nzJustify="center">
@@ -23,17 +23,17 @@
   </div>
   <div *ngIf="this.client && this.client.connected">
     <div nz-row nzJustify="center" [nzGutter]="[0, 18]">
-      <div nz-col [nzXs]="22" [nzSm]="22" [nzMd]="16" [nzLg]="12">
+      <div nz-col [nzXs]="16" [nzSm]="16" [nzMd]="14" [nzLg]="10">
         <div #chatContent class="message-output">
           <ng-container *ngFor="let chatContent of this.chatContentList">
             <div nz-row [nzGutter]="[0, 6]" class="chat-content">
               <!-- message send by other -->
-              <ng-container *ngIf="chatContent.author !== this.userName; else selfChat">
+              <ng-container *ngIf="chatContent.user.uuid !== this.chatUser.uuid; else selfChat">
                 <!-- Single chat content -->
                 <div nz-col [nzSpan]="20">
                   <div nz-row [nzGutter]="[0, 2]">
                     <div style="display: table-cell; vertical-align: bottom; width: 100%">
-                      <span class="chat-content-author">{{ chatContent.author }}</span>
+                      <span class="chat-content-author">{{ chatContent.user.name }}</span>
                       <span class="chat-content-time">{{ chatContent.time | date: 'shortTime' }}</span>
                     </div>
                     <div class="chat-content-message">
@@ -51,7 +51,7 @@
                   <div nz-row [nzGutter]="[0, 2]" nzJustify="end">
                     <div style="display: table-cell; vertical-align: bottom; width: 100%; text-align: right">
                       <span class="chat-content-time">{{ chatContent.time | date: 'shortTime' }}</span>
-                      <span class="chat-content-author">{{ chatContent.author }}</span>
+                      <span class="chat-content-author">{{ chatContent.user.name }}</span>
                     </div>
                     <div class="chat-content-message">
                       {{ chatContent.message }}
@@ -66,9 +66,25 @@
             </div>
           </ng-container>
         </div>
+      </div>
+      <div nz-col [nzSpan]="6">
+        <div #userListContent class="user-list">
+          <div nz-row>
+            <ng-container *ngFor="let user of this.activeUsers">
+              <div nz-col nzSpan="24">
+                <nz-avatar-group>
+                  <nz-avatar nzIcon="user" nzShape="square" nzSize="small" style="background-color:#87d068;"></nz-avatar>
+                  <span>{{ user.name }}</span>
+                </nz-avatar-group>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+      <nz-col nz-col [nzXs]="22" [nzSm]="22" [nzMd]="20" [nzLg]="16">
         <textarea class="message-input" nz-input placeholder="說點什麼吧." [nzAutosize]="{ minRows: 3, maxRows: 5 }" (keyup.enter)="this.send()" [(ngModel)]="this.userInput"></textarea>
         <button nz-button (click)="this.send()">發送</button>
-      </div>
+      </nz-col>
     </div>
   </div>
 </div>
