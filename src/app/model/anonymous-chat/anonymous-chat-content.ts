@@ -12,7 +12,7 @@ export class AnonymousChatContent {
 
     chatContent.user = user;
     chatContent.message = message;
-    chatContent.time = new Date().getTime();
+    chatContent.time = Date.now();
 
     return chatContent;
   }

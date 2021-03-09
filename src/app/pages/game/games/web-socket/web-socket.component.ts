@@ -1,5 +1,5 @@
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import { AnonymousChatContent } from '@root/model/anonymous-chat/anonymous-chat-content';
+import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {AnonymousChatContent} from '@root/model/anonymous-chat/anonymous-chat-content';
 
 import * as SockJS from 'sockjs-client';
 import * as Stomp from 'stompjs';
@@ -74,9 +74,7 @@ export class WebSocketComponent implements OnInit, OnDestroy {
 
       this.client.subscribe('/topic/pakUserListPlayIn', (message => {
 
-        const userArray: Array<AnonymousChatUser> = JSON.parse(message.body);
-
-        this.activeUsers = userArray;
+        this.activeUsers = JSON.parse(message.body);
       }));
 
       this.sendRowData('/pakUserJoinPlayOut', this.chatUser);
@@ -103,16 +101,14 @@ export class WebSocketComponent implements OnInit, OnDestroy {
 
   public send(): void {
 
-    const tmpInput = this.userInput.replace(/^\s+|\s+$/, '');
-
+    const toSend = this.userInput.replace(/^\s+|\s+$/, '');
     this.userInput = '';
 
-    if (tmpInput === '') {
-
+    if (!toSend) {
       return;
     }
 
-    this.sendMessage(tmpInput);
+    this.sendMessage(toSend);
   }
 
   public bottom(): void {
