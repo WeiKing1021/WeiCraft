@@ -5,9 +5,7 @@
       <app-chat-user-login [availableIcons]="this.icons" (userCreate)="this.setChatUser($event)"></app-chat-user-login>
     </ng-container>
     <ng-container *ngIf="this.chatUser">
-      <div class="userInfo">
-        <h1>您好，{{ this.chatUser.name }}</h1>
-      </div>
+      <app-chat-user-title [chatUser]="this.chatUser"></app-chat-user-title>
     </ng-container>
     <!-- Content end -->
   </div>

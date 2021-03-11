@@ -16,6 +16,7 @@ export class ChatUserLoginComponent implements OnInit {
   public userCreate: EventEmitter<AnonymousChatUser>;
 
   public userName: string;
+  public nameErrorMessage: string;
 
   public selectedIcon: string;
 
@@ -46,6 +47,13 @@ export class ChatUserLoginComponent implements OnInit {
     const tmpName = this.userName?.replace(/^\s+|\s+$/, '');
 
     if (tmpName == null || tmpName === '') {
+
+      this.messageService.error('無效的使用者名稱!');
+
+      return;
+    }
+
+    if (tmpName.length > 8) {
 
       this.messageService.error('無效的使用者名稱!');
 

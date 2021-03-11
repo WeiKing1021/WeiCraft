@@ -10,8 +10,8 @@ import * as SockJS from 'sockjs-client';
 })
 export class WeiWebSocket {
 
-  private url: string = 'https://api.weicraft.tw/ws/access';
-  // private url: string = 'http://localhost:8080/ws/access';
+  // private url: string = 'https://api.weicraft.tw/ws/access';
+  private url: string = 'http://localhost:8080/ws/access';
 
   private header = {};
 

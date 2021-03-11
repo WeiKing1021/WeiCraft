@@ -1,17 +1,17 @@
 <div class="user-container">
   <div nz-row nzJustify="center" [nzGutter]="[0, 18]">
-    <span class="desc-font w100" style="text-align: left">輸入暱稱</span>
+    <span class="desc-font w100" style="text-align: left">輸入使用者暱稱</span>
     <input #userNameInput nz-input nzSize="large" placeholder="煞氣a黑騎士" class="w100" type="text" [(ngModel)]="this.userName" (keyup.enter)="this.generateUser()"/>
   </div>
   <nz-divider></nz-divider>
-  <span class="desc-font w100" style="text-align: left">選擇圖式</span>
+  <span class="desc-font w100" style="text-align: left">選擇個性化圖式</span>
   <div nz-row nzJustify="center" [nzGutter]="[0, 18]">
     <div *ngFor="let icon of this.availableIcons" nz-col [nzSpan]="8">
       <i nz-icon [nzType]="icon" [ngClass]="{'icon-select': this.isIcon(icon)}" class="w100 chat-icon" (click)="this.selectIcon(icon)"></i>
     </div>
   </div>
   <nz-divider></nz-divider>
-  <span class="desc-font w100" style="text-align: left">顯示預覽</span>
+  <span class="desc-font w100" style="text-align: left">預覽</span>
   <div style="text-align: center">
     <i nz-icon [nzType]="this.selectedIcon" class="chat-icon"></i>
     <span style="font-size: 48px">{{ this.userName }}</span>

@@ -27,12 +27,12 @@ export class ChatLobbyComponent implements OnInit {
     this.iconNameSpace + 'tornado',
     this.iconNameSpace + 'burger',
     this.iconNameSpace + 'cat',
-    this.iconNameSpace + 'crystal',
+    this.iconNameSpace + 'sleeping-baby',
     this.iconNameSpace + 'in-love',
     this.iconNameSpace + 'feeding-bottle',
   ];
 
-  public chatUser: AnonymousChatUser;
+  public chatUser: AnonymousChatUser = AnonymousChatUser.new(this.icons[0], 'ASD');
 
   constructor(private myWebSocket: WeiWebSocket) {
 
