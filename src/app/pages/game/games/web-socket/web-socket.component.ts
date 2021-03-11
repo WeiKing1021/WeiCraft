@@ -63,15 +63,10 @@ export class WebSocketComponent implements OnInit, OnDestroy {
         }, 1);
       });
 
-<<<<<<< HEAD
       this.userListSub = this.myWebSocket.watch('/topic/pakUserListPlayIn', packet => {
 
         this.activeUsers = packet.container;
       });
-=======
-        this.activeUsers = JSON.parse(message.body);
-      }));
->>>>>>> 6068b45d578bf56fb572bae733e35587d4318ecb
 
       this.sendRowData('/pakUserJoinPlayOut', this.chatUser);
 
