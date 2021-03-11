@@ -8,8 +8,8 @@ import { Stomp, Client } from '@stomp/stompjs';
 
 /*@Component({
   selector: 'app-web-socket',
-  templateUrl: './web-socket.component.html',
-  styleUrls: ['./web-socket.component.less']
+  templateUrl: './web-socket2.component.html',
+  styleUrls: ['./web-socket2.component.less']
 })*/
 export class WebSocketComponent implements OnInit, OnDestroy {
 

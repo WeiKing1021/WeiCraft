@@ -20,6 +20,7 @@ import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import {NzSpinModule} from 'ng-zorro-antd/spin';
 import {NzAvatarModule} from 'ng-zorro-antd/avatar';
+import {NzRadioModule} from 'ng-zorro-antd/radio';
 
 @NgModule({
   declarations: [],
@@ -46,6 +47,7 @@ import {NzAvatarModule} from 'ng-zorro-antd/avatar';
     NzInputModule,
     NzSpinModule,
     NzAvatarModule,
+    NzRadioModule,
   ]
 })
 export class NzSharedModule { }

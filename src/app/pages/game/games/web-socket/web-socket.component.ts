@@ -4,6 +4,8 @@ import { AnonymousChatContent } from '@root/model/anonymous-chat/anonymous-chat-
 import * as SockJS from 'sockjs-client';
 import * as Stomp from 'stompjs';
 import {AnonymousChatUser} from '@root/model/anonymous-chat/anonymous-chat-user';
+import {WeiWebSocket} from '@root/services/web-socket/wei-web-socket';
+import {WebSocketPacket} from '@root/model/web-socket/web-socket-packet';
 
 @Component({
   selector: 'app-web-socket',
@@ -19,73 +21,57 @@ export class WebSocketComponent implements OnInit, OnDestroy {
 
   public activeUsers: Array<AnonymousChatUser> = Array<AnonymousChatUser>();
 
-  public client: Stomp.Client;
+  public chatContentList: Array<AnonymousChatContent> = Array<AnonymousChatContent>();
 
-  public chatContentList: AnonymousChatContent[] = Array<AnonymousChatContent>();
+  public chatContentSub: Stomp.Subscription;
+
+  public userListSub: Stomp.Subscription;
 
   public userInput: string;
 
   public loading: boolean = false;
 
-  constructor() {}
+  constructor(public myWebSocket: WeiWebSocket) {}
 
   ngOnInit(): void {}
 
   public newUser(userName: string): void {
 
-    this.chatUser = AnonymousChatUser.new(userName);
+    this.chatUser = AnonymousChatUser.new(null, userName);
   }
 
   public newWebSocket(): void {
 
     this.loading = true;
 
-    if (this.client && this.client.connected) {
-
-      this.client.disconnect(() => {
-
-        // console.log('Disconnect');
-      });
-    }
-
-    // this.client = Stomp.over(new SockJS('http://localhost:8080/ws/anonymous-chat'));
-    this.client = Stomp.over(new SockJS('https://api.weicraft.tw/ws/anonymous-chat'));
-
-    this.client.debug = (args) => {
-
-      // console.log('Debug: ' + args);
-    };
-
-    this.client.connect({}, (frame) => {
+    this.myWebSocket.init((frame) => {
 
       this.loading = false;
 
-      this.client.subscribe('/topic/pakUserChatPlayIn', (message => {
+      if (this.chatContentSub) {
 
-        const content: AnonymousChatContent = JSON.parse(message.body);
+        this.chatContentSub.unsubscribe();
+      }
 
-        this.chatContentList.push(content);
+      this.chatContentSub = this.myWebSocket.watch('/topic/pakUserChatPlayIn', packet => {
+
+        this.chatContentList.push(packet.container);
 
         setTimeout(() => {
 
           this.bottom();
         }, 1);
-      }));
+      });
 
-      this.client.subscribe('/topic/pakUserListPlayIn', (message => {
+      this.userListSub = this.myWebSocket.watch('/topic/pakUserListPlayIn', packet => {
 
-        const userArray: Array<AnonymousChatUser> = JSON.parse(message.body);
-
-        this.activeUsers = userArray;
-      }));
+        this.activeUsers = packet.container;
+      });
 
       this.sendRowData('/pakUserJoinPlayOut', this.chatUser);
 
       this.sendMessage('大家好，我是剛來的，我叫做' + this.chatUser.name);
-
     }, (error) => {
-
-      this.loading = false;
 
       console.log(error);
     });
@@ -93,7 +79,7 @@ export class WebSocketComponent implements OnInit, OnDestroy {
 
   public sendRowData(channel: string, data: any): void {
 
-    this.client.send(channel, undefined, JSON.stringify(data));
+    this.myWebSocket.publish(channel, WebSocketPacket.newAnonymous(data));
   }
 
   public sendMessage(chatMessage: string): void {
@@ -127,22 +113,16 @@ export class WebSocketComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
 
-    if (!this.client) {
+    this.sendMessage('');
 
-      return;
+    if (this.chatContentSub) {
+
+      this.chatContentSub.unsubscribe();
     }
 
-    if (!this.client.connected) {
+    this.myWebSocket.disconnect(() => {
 
-      return;
-    }
-
-    this.sendMessage('大家掰掰～');
-
-    this.sendRowData('/pakUserQuitPlayOut', this.chatUser);
-
-    this.client.disconnect(() => {
-
+      console.log('Disconnected');
     });
   }
 }

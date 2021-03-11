@@ -21,7 +21,7 @@
       <nz-spin  nzSimple [nzSize]="'large'"></nz-spin>
     </nz-col>
   </div>
-  <div *ngIf="this.myWebSocket.isConnected()">
+  <div *ngIf="this.client && !this.client?.closed">
     <div nz-row nzJustify="center" [nzGutter]="[0, 18]">
       <div nz-col [nzXs]="16" [nzSm]="16" [nzMd]="14" [nzLg]="10">
         <div #chatContent class="message-output">

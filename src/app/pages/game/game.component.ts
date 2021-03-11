@@ -37,6 +37,13 @@ export class GameComponent implements OnInit {
       extra: '開始遊戲',
       router: 'web-socket',
     },
+    {
+      img: 'https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png',
+      title: 'WebSocket聊天室2.0 (貌似失敗了)',
+      description: '練習WebSocket2.0 (貌似失敗了)',
+      extra: '開始遊戲',
+      router: 'web-socket2',
+    },
   ];
 
   constructor() {}

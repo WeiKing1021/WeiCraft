@@ -16,6 +16,10 @@ import { LogoComponent } from './global/logo/logo/logo.component';
 import { IndexComponent } from './pages/index/index.component';
 import { HammerGestureConfig, HammerModule, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { WeiCustomModule } from '@shared/wei-custom/wei-custom.module';
+import {GameComponent} from '@root/pages/game/game.component';
+import {WelcomeComponent} from '@root/pages/welcome/welcome.component';
+import {FunnyComponent} from '@root/pages/funny/funny.component';
+import {NzMessageService} from 'ng-zorro-antd/message';
 
 @Injectable()
 export class MyHammerConfig extends HammerGestureConfig {
@@ -57,6 +61,7 @@ registerLocaleData(zh);
     WeiCustomModule,
   ],
   providers: [
+    NzMessageService,
     {
       provide: NZ_I18N, useValue: zh_TW
     },

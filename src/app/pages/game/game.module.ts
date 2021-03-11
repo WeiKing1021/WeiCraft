@@ -9,6 +9,8 @@ import { FingerGuessingComponent } from './games/finger-guessing/finger-guessing
 import { HammerComponent } from './games/hammer/hammer.component';
 import { WeiCustomModule } from '@shared/wei-custom/wei-custom.module';
 import { WebSocketComponent } from './games/web-socket/web-socket.component';
+import { WebSocket2Component } from '@root/pages/game/games/web-socket2/web-socket2.component';
+import {NzMessageService} from 'ng-zorro-antd/message';
 
 @NgModule({
   declarations: [
@@ -16,6 +18,7 @@ import { WebSocketComponent } from './games/web-socket/web-socket.component';
     FingerGuessingComponent,
     HammerComponent,
     WebSocketComponent,
+    WebSocket2Component,
   ],
   imports: [
     CommonModule,
@@ -23,6 +26,6 @@ import { WebSocketComponent } from './games/web-socket/web-socket.component';
     NgFormModule,
     NzSharedModule,
     WeiCustomModule,
-  ]
+  ],
 })
 export class GameModule { }

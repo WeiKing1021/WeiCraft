@@ -1,0 +1,14 @@
+<div nz-row nzJustify="center" [nzGutter]="[0, 18]">
+  <div nz-col [nzXs]="22" [nzSm]="22" [nzMd]="16" [nzLg]="12">
+    <!-- Content begin -->
+    <ng-container *ngIf="!this.chatUser">
+      <app-chat-user-login [availableIcons]="this.icons" (userCreate)="this.setChatUser($event)"></app-chat-user-login>
+    </ng-container>
+    <ng-container *ngIf="this.chatUser">
+      <div class="userInfo">
+        <h1>您好，{{ this.chatUser.name }}</h1>
+      </div>
+    </ng-container>
+    <!-- Content end -->
+  </div>
+</div>

@@ -15,7 +15,7 @@ export class SideBarComponent implements OnInit {
     menu3: false
   };
 
-  public list: string[] = ['A', 'B', 'C', 'D', 'E', 'F', 'G']
+  public list: string[] = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
 
   constructor() {}
 
