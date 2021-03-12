@@ -11,7 +11,7 @@ import {NzIconService} from 'ng-zorro-antd/icon';
 
 export class ChatLobbyComponent implements OnInit {
 
-  public iconNameSpace: string = 'wei-custom-icons:';
+  public iconNameSpace: string = 'bros-icons:';
 
   public apiUrl: string;
   public header: {};
@@ -32,7 +32,7 @@ export class ChatLobbyComponent implements OnInit {
     this.iconNameSpace + 'feeding-bottle',
   ];
 
-  public chatUser: AnonymousChatUser = AnonymousChatUser.new(this.icons[0], 'ASD');
+  public chatUser: AnonymousChatUser/* = AnonymousChatUser.new(this.icons[0], 'ASD')*/;
 
   constructor(private myWebSocket: WeiWebSocket) {
 
